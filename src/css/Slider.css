@@ -47,6 +47,10 @@ main p {
   }
 }
 
+.slider-container {
+  margin-top: auto;
+}
+
 .slider-button {
   display: none;
   margin: 0 15px 0 5px;
@@ -85,6 +89,7 @@ main p {
   display: flex;
   width: 100%;
   justify-content: center;
+  margin-top: auto;
 }
 
 .slider-dot {

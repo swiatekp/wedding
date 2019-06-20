@@ -2,7 +2,7 @@ import React from 'react';
 import '../css/Info.scss';
 const Info = () => {
     return (
-        <div>
+        <div className="slider-container">
             <p>
                 Mamy przyjemność zaprosić Was na nasz ślub.
             </p>
