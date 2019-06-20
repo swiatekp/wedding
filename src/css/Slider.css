@@ -1,0 +1,165 @@
+main {
+  width: 100%;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 8;
+}
+
+@media (min-width: 600px) {
+  main {
+    font-size: 16px;
+  }
+}
+
+main p {
+  width: 100%;
+  text-align: justify;
+  margin-bottom: 10px;
+}
+
+.main-content {
+  background-color: #FFFFFF;
+  opacity: 0.90;
+  border-top: 1px solid #DDDDDD;
+  border-bottom: 1px solid #DDDDDD;
+  padding: 40px 40px 40px 40px;
+  min-height: 80%;
+  width: 100%;
+  align-self: stretch;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+@media (min-width: 600px) {
+  .main-content {
+    width: 70%;
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+  }
+}
+
+@media (min-width: 900px) {
+  .main-content {
+    width: 50%;
+  }
+}
+
+.slider-button {
+  display: none;
+  margin: 0 15px 0 5px;
+  background-color: transparent;
+  border: 0;
+  font-family: 'Parisienne', cursive;
+  font-size: 70px;
+  color: #828282;
+  transition: 0.2s;
+}
+
+@media (min-width: 600px) {
+  .slider-button {
+    display: block;
+  }
+}
+
+.slider-button:first-child {
+  margin: 0 25px 0 5px;
+}
+
+.slider-button:last-child {
+  margin: 0 5px 0 25px;
+}
+
+.slider-button:hover {
+  color: #FDA0EE;
+}
+
+.slider-button:focus {
+  outline: 0;
+  color: #FDA0EE;
+}
+
+.approach {
+  border: 0;
+  background-color: transparent;
+  background-image: url("../img/pin.svg");
+  background-repeat: no-repeat;
+  background-size: 20px 25px;
+  background-position: left center;
+  font-family: 'Parisienne', cursive;
+  font-size: 20px;
+  color: #828282;
+  display: flex;
+  align-items: center;
+  margin: 20px 20px;
+  padding-left: 25px;
+  transition: 0.2s;
+}
+
+@media (min-width: 600px) {
+  .approach {
+    background-size: 40px 50px;
+    padding-left: 50px;
+    font-size: 40px;
+  }
+}
+
+.approach div {
+  width: 20px;
+  height: 25px;
+  margin-right: 5px;
+  background-image: url("../img/pin.svg");
+  background-repeat: no-repeat;
+  background-position: left center;
+  transition: 0.3s;
+}
+
+.approach:hover {
+  color: #FDA0EE;
+  background-image: url("../img/pin-hover.svg");
+}
+
+.approach:focus {
+  outline: none;
+  color: #FDA0EE;
+  background-image: url("../img/pin-hover.svg");
+}
+
+.dots-container {
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.slider-dot {
+  display: block;
+  width: 13px;
+  height: 13px;
+  background-color: transparent;
+  border-radius: 50%;
+  border: 3px solid #828282;
+  margin-right: 10px;
+  transition: 0.2s;
+}
+
+.slider-dot:last-child {
+  margin-right: 0;
+}
+
+.slider-dot:focus {
+  outline: 0;
+}
+
+.slider-dot:hover {
+  border-color: #FDA0EE;
+}
+
+.slider-dot.active {
+  background-color: #828282;
+}
+
+.slider-dot.active:hover {
+  background-color: #FDA0EE;
+}

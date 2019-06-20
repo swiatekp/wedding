@@ -1,0 +1,76 @@
+nav {
+  flex: 1;
+  width: 100%;
+}
+
+nav ul {
+  list-style-type: none;
+  width: 100%;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  padding: 10px 0 10px 0;
+}
+
+nav li {
+  margin-right: 15px;
+}
+
+nav li:last-child {
+  margin: 0;
+}
+
+nav .nav-link {
+  color: transparent;
+  display: block;
+  width: 40px;
+  height: 40px;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  transition: 0.3s;
+}
+
+nav .nav-link:hover {
+  transform: rotate(-5deg);
+}
+
+nav .info-icon {
+  background-image: url("../img/mobile/info.svg");
+}
+
+nav .info-icon:hover {
+  background-image: url("../img/mobile/info-hover.svg");
+}
+
+nav .confirm-icon {
+  background-image: url("../img/mobile/confirm.svg");
+}
+
+nav .confirm-icon:hover {
+  background-image: url("../img/mobile/confirm-hover.svg");
+}
+
+nav .contact-icon {
+  background-image: url("../img/mobile/contact.svg");
+}
+
+nav .contact-icon:hover {
+  background-image: url("../img/mobile/contact-hover.svg");
+}
+
+@media (min-width: 600px) {
+  nav .nav-link {
+    color: #5A5656;
+    background-image: none;
+    width: auto;
+    height: auto;
+    text-decoration: none;
+    text-transform: uppercase;
+  }
+  nav .nav-link:hover {
+    background-image: none;
+    color: #FDA0EE;
+    transform: none;
+  }
+}
