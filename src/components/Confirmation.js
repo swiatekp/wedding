@@ -21,7 +21,7 @@ class Confirmation extends Component {
             this.setState({
                 currentError: ''
             })
-        }, 2000)
+        }, 200000)
     }
     isValid = target => {
         console.log(target.tagName);
@@ -33,7 +33,7 @@ class Confirmation extends Component {
                         return true;
                     }
                     else {
-                        this.setCurrentError('W tym polu można wpisać jedynie litery i spacje');
+                        this.setCurrentError('W tym polu można używać jedynie liter i spacji');
                     }
                     return false;
                 }
@@ -48,7 +48,7 @@ class Confirmation extends Component {
                     return true;
                 }
                 else {
-                    this.setCurrentError('Token składa się z sześciu znaków - cyfr i liter.');
+                    this.setCurrentError('Token składa się wyłącznie z cyfr i liter (6 znaków)');
                 }
                 return false;
             }
@@ -126,7 +126,7 @@ class Confirmation extends Component {
                     )
                 }
                 <h3 className="confirmation-h3">Potwierdź przybycie</h3>
-                <form className="confirmation-form" autoComplete="off">
+                <form onSubmit={e => e.preventDefault()} className="confirmation-form" autoComplete="off">
 
                     <label htmlFor="name">Imię</label>
                     <input onChange={this.changeHandler} type="text" id="name" className="name" value={name} />
