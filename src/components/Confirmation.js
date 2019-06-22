@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import FormError from './FormError.js';
 import '../css/Confirmation.scss';
 
 class Confirmation extends Component {
@@ -97,15 +98,31 @@ class Confirmation extends Component {
             }
         }
     }
+    formSubmit = e => {
+        e.preventDefault();
+    }
+    formReset = e => {
+        e.preventDefault();
+        this.setState({
+
+            name: '',
+            surname: '',
+            confirmed: false,
+            companion: '',
+            companionConfirmed: false,
+            message: '',
+            token: '',
+            currentError: '',
+
+        });
+    }
     render() {
         const { name, surname, companion, companionConfirmed, message, token } = this.state;
         return (
             <div className="slider-container">
                 {
                     this.state.currentError === "" ? null : (
-                        <div className="error-prompt">
-                            {this.state.currentError}
-                        </div>
+                        <FormError error={this.state.currentError} />
                     )
                 }
                 <h3 className="confirmation-h3">Potwierdź przybycie</h3>
@@ -149,8 +166,8 @@ class Confirmation extends Component {
                     <label htmlFor="token">Token</label>
                     <input onChange={this.changeHandler} type="text" id="token" value={token} />
 
-                    <button>Wyślij</button>
-                    <button>Reset</button>
+                    <button onClick={this.submit}>Wyślij</button>
+                    <button onClick={this.formReset}>Reset</button>
                 </form>
             </div>
         );
