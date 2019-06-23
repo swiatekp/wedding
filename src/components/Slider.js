@@ -1,7 +1,6 @@
 import React from 'react';
 import { Route, NavLink } from 'react-router-dom';
 import SwipeableRoutes from "react-swipeable-routes";
-import Error404 from './Error404.js';
 import '../css/Slider.scss';
 import pagelist from '../pagelist.js';
 
@@ -20,7 +19,6 @@ const Slider = (props) => {
             <article className="main-content">
                 <SwipeableRoutes>
                     {routes}
-                    {/*<Route component={Error404} />*/}
                 </SwipeableRoutes>
                 <div className="dots-container">
                     {dots}
