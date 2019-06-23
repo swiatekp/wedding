@@ -1,34 +1,33 @@
 import React from 'react';
-import { Route, Switch, NavLink } from 'react-router-dom';
-import Info from './Info.js';
-import Confirmation from './Confirmation.js';
-import Contact from './Contact.js';
+import { Route, NavLink } from 'react-router-dom';
+import SwipeableRoutes from "react-swipeable-routes";
 import Error404 from './Error404.js';
 import '../css/Slider.scss';
 import pagelist from '../pagelist.js';
 
-const Content = () => {
-    const dots = pagelist().map((dot, key) => (
+const Slider = (props) => {
+    const list = pagelist();
+    const dots = list.map((dot, key) => (
         <NavLink key={key} exact={dot.exact} className="slider-dot" to={dot.path}>{dot.pagename}</NavLink>
     ));
-    const routes = pagelist().map((route, key) => (
-        <Route key={key} exact={route.exact} path={route.path} component={route.component} />
+    const routes = list.map((route, key) => (
+        <Route key={key} path={route.path} component={route.component} />
     ))
-    console.log(pagelist());
+
     return (
         <main>
-            <button className="slider-button">&lt;</button>
+            <NavLink className="slider-button" to="/">&lt;</NavLink>
             <article className="main-content">
-                <Switch>
+                <SwipeableRoutes>
                     {routes}
-                    <Route component={Error404} />
-                </Switch>
+                    {/*<Route component={Error404} />*/}
+                </SwipeableRoutes>
                 <div className="dots-container">
                     {dots}
                 </div>
             </article>
-            <button className="slider-button">&gt;</button>
+            <NavLink className="slider-button" to="/contact">&gt;</NavLink>
         </main>
     );
 }
-export default Content;
+export default Slider;
