@@ -50,6 +50,37 @@ main {
     max-height:50vh;
     padding:20px;
 }
+::-webkit-scrollbar {
+    -webkit-appearance:none;
+    width:8px;
+}
+::-webkit-scrollbar-track {
+    background:$grey2; 
+}
+::-webkit-scrollbar-thumb {
+    background:$grey3;
+}
+::-webkit-scrollbar-thumb:hover {
+    background:$grey1; 
+}
+
+::-ms-scrollbar {
+    -webkit-appearance:none;
+    width:8px;
+}
+::-ms-scrollbar-track {
+    background:$grey2; 
+}
+::-ms-scrollbar-thumb {
+    background:$grey3;
+}
+::-ms-scrollbar-thumb:hover {
+    background:$grey1; 
+}
+
+.no-overflow {
+    overflow:hidden;
+}
 .no-overflow {
     overflow:hidden;
 }
