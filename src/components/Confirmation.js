@@ -18,17 +18,21 @@ class Confirmation extends Component {
             currentError: err
         })
         setTimeout(() => {
+            this.removeError();
+        }, 2000)
+    }
+    removeError = () => {
+        if (this.state.currentError !== "") {
             this.setState({
                 currentError: ''
             })
-        }, 200000)
+        }
     }
     isValid = target => {
-        console.log(target.tagName);
         if (target.type === "text" || target.tagName === "TEXTAREA") {
             if (target.classList.contains('name')) {
                 if (target.value.length <= 30) {
-                    const regEx = /^[a-zęóąśłżźćń ]+$/i;
+                    const regEx = /^[a-zęóąśłżźćń ]*$/i;
                     if (regEx.test(target.value)) {
                         return true;
                     }
@@ -54,8 +58,7 @@ class Confirmation extends Component {
             }
             else if (target.id === "message") {
                 if (target.value.length <= 500) {
-                    console.log(target.value.length);
-                    const regEx = /^[a-zęóąśłżźćń0-9!#&*()-_=+;:]+$/;
+                    const regEx = /^[a-zęóąśłżźćń0-9!#&*()-_=+;:]*$/;
                     if (regEx.test(target.value)) {
                         return true;
                     }
@@ -122,7 +125,7 @@ class Confirmation extends Component {
             <div className="slider-container">
                 {
                     this.state.currentError === "" ? null : (
-                        <FormError error={this.state.currentError} />
+                        <FormError tabIndex="0" error={this.state.currentError} />
                     )
                 }
                 <h3 className="confirmation-h3">Potwierdź przybycie</h3>
