@@ -17,7 +17,7 @@ class Slider extends Component {
             this.setState({
                 errorPrompt: ""
             });
-        }, 200000)
+        }, 2500)
     }
 
     render = () => {
