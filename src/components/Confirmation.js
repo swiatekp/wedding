@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import FormError from './FormError.js';
 import '../css/Confirmation.scss';
 
 class Confirmation extends Component {
@@ -10,23 +9,7 @@ class Confirmation extends Component {
         companion: '',
         companionConfirmed: false,
         message: '',
-        token: '',
-        currentError: '',
-    }
-    setCurrentError = err => {
-        this.setState({
-            currentError: err
-        })
-        setTimeout(() => {
-            this.removeError();
-        }, 2000)
-    }
-    removeError = () => {
-        if (this.state.currentError !== "") {
-            this.setState({
-                currentError: ''
-            })
-        }
+        token: ''
     }
     isValid = target => {
         if (target.type === "text" || target.tagName === "TEXTAREA") {
@@ -37,12 +20,12 @@ class Confirmation extends Component {
                         return true;
                     }
                     else {
-                        this.setCurrentError('W tym polu można używać jedynie liter i spacji');
+                        this.props.setErrorPrompt('W tym polu można używać jedynie liter i spacji');
                     }
                     return false;
                 }
                 else {
-                    this.setCurrentError('Długość tekstu w tym polu nie może przekraczać 30 znaków');
+                    this.props.setErrorPrompt('Długość tekstu w tym polu nie może przekraczać 30 znaków');
                 }
                 return false;
             }
@@ -52,7 +35,7 @@ class Confirmation extends Component {
                     return true;
                 }
                 else {
-                    this.setCurrentError('Token składa się wyłącznie z cyfr i liter (6 znaków)');
+                    this.props.setErrorPrompt('Token składa się wyłącznie z cyfr i liter (6 znaków)');
                 }
                 return false;
             }
@@ -63,12 +46,12 @@ class Confirmation extends Component {
                         return true;
                     }
                     else {
-                        this.setCurrentError('Użyto niedozwolonego znaku');
+                        this.props.setErrorPrompt('Użyto niedozwolonego znaku');
                     }
                     return false;
                 }
                 else {
-                    this.setCurrentError('Długość wiadomości nie może przekroczyć 500 znaków.')
+                    this.props.setErrorPrompt('Długość wiadomości nie może przekroczyć 500 znaków.')
                     return false;
                 }
             }
@@ -107,7 +90,6 @@ class Confirmation extends Component {
     formReset = e => {
         e.preventDefault();
         this.setState({
-
             name: '',
             surname: '',
             confirmed: false,
@@ -115,19 +97,12 @@ class Confirmation extends Component {
             companionConfirmed: false,
             message: '',
             token: '',
-            currentError: '',
-
         });
     }
     render() {
         const { name, surname, companion, companionConfirmed, message, token } = this.state;
         return (
             <div className="slider-container">
-                {
-                    this.state.currentError === "" ? null : (
-                        <FormError tabIndex="0" error={this.state.currentError} />
-                    )
-                }
                 <h3 className="confirmation-h3">Potwierdź przybycie</h3>
                 <form onSubmit={e => e.preventDefault()} className="confirmation-form" autoComplete="off">
 

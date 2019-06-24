@@ -11,7 +11,8 @@ const pagelist = () => {
                 path: "/",
                 exact: true,
                 className: "info-icon",
-                component: Info
+                component: Info,
+                componentName: "Info",
             },
             {
                 id: 1,
@@ -19,7 +20,8 @@ const pagelist = () => {
                 path: "/confirm",
                 exact: false,
                 className: "confirm-icon",
-                component: Confirmation
+                component: Confirmation,
+                componentName: "Confirmation",
             },
             {
                 id: 2,
@@ -27,7 +29,8 @@ const pagelist = () => {
                 path: "/contact",
                 exact: false,
                 className: "contact-icon",
-                component: Contact
+                component: Contact,
+                componentName: "Confirmation",
             }
         ]
     );
