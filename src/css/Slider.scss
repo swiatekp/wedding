@@ -140,6 +140,7 @@ main {
 }
 .slider-dot:hover {
     border-color:$rose;
+    transform:scale(1.2);
 }
 .slider-dot.active {
     background-color:$grey3;
