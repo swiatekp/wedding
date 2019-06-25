@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import '../css/Confirmation.scss';
-
 class Confirmation extends Component {
     state = {
         name: '',
@@ -10,10 +9,11 @@ class Confirmation extends Component {
         companionConfirmed: false,
         message: '',
         token: '',
-        nameError: null,
-        surnameError: null,
-        companionError: null,
-        messageError: null,
+        nameError: false,
+        surnameError: false,
+        companionError: false,
+        messageError: false,
+        tokenError: false,
     }
     isValid = target => {
         // if (target.type === "text" || target.tagName === "TEXTAREA") {
@@ -84,6 +84,7 @@ class Confirmation extends Component {
             }
             else {
                 newState[e.target.id] = e.target.value;
+                newState[`${e.target.id}Error`] = false;
 
                 this.setState(newState);
             }
@@ -93,10 +94,10 @@ class Confirmation extends Component {
         e.preventDefault();
 
         let isThereAnError = false;
-
-        if (!/^[a-zęóąśłżźćń]{3,}$/i.test(this.state.name)) {
+        if (!/^[a-zęóąśłżźćń]{3,}$/ig.test(this.state.name)) {
             this.setState({ nameError: true });
             isThereAnError = true;
+
         }
         if (!/^[a-zęóąśłżźćń]{2,}$/i.test(this.state.surname)) {
             this.setState({ surnameError: true });
@@ -110,14 +111,15 @@ class Confirmation extends Component {
             this.setState({ messageError: true });
             isThereAnError = true;
         }
-        if (!/^[a-zęóąśłżźćń0-9]{6}$/.test(this.state.token)) {
+        if (!/^[a-z0-9]{6}$/i.test(this.state.token)) {
             this.setState({ tokenError: true });
             isThereAnError = true;
         }
-        if (!this.state.confirmed === true || this.state.confirmed === false) {
+        if (this.state.confirmed !== true && this.state.confirmed !== false) {
             isThereAnError = true;
         }
-        if (!this.state.companionConfirmed === true || this.state.companionConfirmed === false) {
+
+        if (this.state.companionConfirmed !== true && this.state.companionConfirmed !== false) {
             isThereAnError = true;
         }
         if (!isThereAnError) {
@@ -137,10 +139,10 @@ class Confirmation extends Component {
             companionConfirmed: false,
             message: '',
             token: '',
-            nameError: null,
-            surnameError: null,
-            companionError: null,
-            messageError: null,
+            nameError: false,
+            surnameError: false,
+            companionError: false,
+            messageError: false,
         });
     }
     sendToAPI = () => {
@@ -154,10 +156,10 @@ class Confirmation extends Component {
                 <form onSubmit={e => e.preventDefault()} className="confirmation-form" autoComplete="off">
 
                     <label htmlFor="name">Imię</label>
-                    <input onChange={this.changeHandler} type="text" id="name" className="name" value={name} />
+                    <input onChange={this.changeHandler} type="text" id="name" className={`name ${this.state.nameError === true ? "input-error" : null}`} value={name} />
 
                     <label htmlFor="surname">Nazwisko</label>
-                    <input onChange={this.changeHandler} type="text" id="surname" className="name" value={surname} />
+                    <input onChange={this.changeHandler} type="text" id="surname" className={`name ${this.state.surnameError ? "input-error" : null}`} value={surname} />
 
                     <p>Czy przybędziesz na wesele?</p>
                     <div>
@@ -172,7 +174,7 @@ class Confirmation extends Component {
                     </div>
 
                     <label htmlFor="companion">Osoba towarzysząca</label>
-                    <input onChange={this.changeHandler} type="text" id="companion" className="name" value={companion} />
+                    <input onChange={this.changeHandler} type="text" id="companion" className={`name ${this.state.companionError ? "input-error" : null}`} value={companion} />
 
                     <p>Czy osoba towarzysząca przybędzie na wesele?</p>
                     <div>
@@ -186,10 +188,10 @@ class Confirmation extends Component {
                         </label>
                     </div>
                     <label htmlFor="message">Twoja wiadomość</label>
-                    <textarea onChange={this.changeHandler} id="message" placeholder="Twoja wiadomość" value={message}></textarea>
+                    <textarea className={this.state.messageError ? "input-error" : null} onChange={this.changeHandler} id="message" placeholder="Twoja wiadomość" value={message}></textarea>
 
                     <label htmlFor="token">Token</label>
-                    <input onChange={this.changeHandler} type="text" id="token" value={token} />
+                    <input className={this.state.tokenError ? "input-error" : null} onChange={this.changeHandler} type="text" id="token" value={token} />
 
                     <button onClick={this.formSubmit}>Wyślij</button>
                     <button onClick={this.formReset}>Reset</button>
