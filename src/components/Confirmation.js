@@ -16,56 +16,56 @@ class Confirmation extends Component {
         tokenError: false,
     }
     isValid = target => {
-        // if (target.type === "text" || target.tagName === "TEXTAREA") {
-        //     if (target.classList.contains('name')) {
-        //         if (target.value.length <= 30) {
-        //             const regEx = /^[a-zęóąśłżźćń ]*$/i;
-        //             if (regEx.test(target.value)) {
-        //                 return true;
-        //             }
-        //             else {
-        //                 this.props.setErrorPrompt('W tym polu można używać jedynie liter i spacji');
-        //             }
-        //             return false;
-        //         }
-        //         else {
-        //             this.props.setErrorPrompt('Długość tekstu w tym polu nie może przekraczać 30 znaków');
-        //         }
-        //         return false;
-        //     }
-        //     else if (target.id === "token") {
-        //         const regEx = /^[a-zęóąśłżźćń0-9]{0,6}$/i;
-        //         if (regEx.test(target.value)) {
-        //             return true;
-        //         }
-        //         else {
-        //             this.props.setErrorPrompt('Token składa się wyłącznie z cyfr i liter (6 znaków)');
-        //         }
-        //         return false;
-        //     }
-        //     else if (target.id === "message") {
-        //         if (target.value.length <= 500) {
-        //             const regEx = /^[a-zęóąśłżźćń0-9!#&*()-_=+;:]*$/;
-        //             if (regEx.test(target.value)) {
-        //                 return true;
-        //             }
-        //             else {
-        //                 this.props.setErrorPrompt('Użyto niedozwolonego znaku');
-        //             }
-        //             return false;
-        //         }
-        //         else {
-        //             this.props.setErrorPrompt('Długość wiadomości nie może przekroczyć 500 znaków.')
-        //             return false;
-        //         }
-        //     }
-        // }
-        // else if (target.type === "radio") {
-        //     if (target.value === "true" || target.value === "false") {
-        //         return true;
-        //     }
-        //     return false;
-        // }
+        if (target.type === "text" || target.tagName === "TEXTAREA") {
+            if (target.classList.contains('name')) {
+                if (target.value.length <= 30) {
+                    const regEx = /^[a-zęóąśłżźćń ]*$/i;
+                    if (regEx.test(target.value)) {
+                        return true;
+                    }
+                    else {
+                        this.props.setErrorPrompt('W tym polu można używać jedynie liter i spacji');
+                    }
+                    return false;
+                }
+                else {
+                    this.props.setErrorPrompt('Długość tekstu w tym polu nie może przekraczać 30 znaków');
+                }
+                return false;
+            }
+            else if (target.id === "token") {
+                const regEx = /^[a-zęóąśłżźćń0-9]{0,6}$/i;
+                if (regEx.test(target.value)) {
+                    return true;
+                }
+                else {
+                    this.props.setErrorPrompt('Token składa się wyłącznie z cyfr i liter (6 znaków)');
+                }
+                return false;
+            }
+            else if (target.id === "message") {
+                if (target.value.length <= 500) {
+                    const regEx = /^[a-zęóąśłżźćń0-9!#&*()-_=+;:]*$/;
+                    if (regEx.test(target.value)) {
+                        return true;
+                    }
+                    else {
+                        this.props.setErrorPrompt('Użyto niedozwolonego znaku');
+                    }
+                    return false;
+                }
+                else {
+                    this.props.setErrorPrompt('Długość wiadomości nie może przekroczyć 500 znaków.')
+                    return false;
+                }
+            }
+        }
+        else if (target.type === "radio") {
+            if (target.value === "true" || target.value === "false") {
+                return true;
+            }
+            return false;
+        }
         return true;
     }
     changeHandler = e => {
