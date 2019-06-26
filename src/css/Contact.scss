@@ -1,0 +1,28 @@
+$grey1:#5A5656;
+$grey4: #b9b9b9;
+.contact-container {
+    width:100%;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    overflow:hidden;
+    @media(max-height:640px) {
+    overflow-y:auto !important;
+    }
+}
+.phone-mail {
+    display:grid;
+    min-width:295px;
+    grid-template-columns: 60px 1fr;
+    grid-row-gap:20px;
+    padding: 20px;
+}
+.phone-mail>a {
+    text-decoration:none;
+    color:$grey1;
+    display:block;
+    line-height:40px;
+}
+.phone-mail>a:hover {
+    color:$grey4;
+}
