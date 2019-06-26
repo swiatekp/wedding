@@ -1,11 +1,11 @@
 import React from 'react';
 import '../css/Header.scss';
-
+import siteData from "../siteData.json";
 const Header = () => {
     return (
         <header>
-            <h1>Alicja i Piotr</h1>
-            <h2>2 maja 2020 r.</h2>
+            <h1>{`${siteData.bride.firstName} i ${siteData.groom.firstName}`}</h1>
+            <h2>{siteData.weddingDate}</h2>
         </header>
     );
 }
