@@ -9,7 +9,7 @@ class App extends Component {
   state = {}
   render() {
     return (
-      <Router>
+      <Router basename={process.env.PUBLIC_URL}>
         <Navbar />
         <Header />
         <Slider />
