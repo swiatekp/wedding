@@ -4,11 +4,15 @@ import SwipeableRoutes from "react-swipeable-routes";
 import '../css/Slider.scss';
 import pagelist from '../pagelist.js';
 import FormError from './FormError.js';
+import ApproachPopup from './ApproachPopup.js';
 
 class Slider extends Component {
     state = {
-        errorPrompt: ""
+        errorPrompt: "",
+        showApproachPopup: false,
     }
+    //error prompt setter - used by the Confirmation component
+    //Had to be moved here because of problems with position:fixed inside SwipeableRoutes
     setErrorPrompt = (errorPrompt) => {
         this.setState({
             errorPrompt
@@ -19,18 +23,37 @@ class Slider extends Component {
             });
         }, 2500)
     }
-
+    //handles the display of a popup, that shows the locations
+    //had to be moved here because of problems with position:fixed inside SwipeableRoutes
+    toggleApproachPopup = () => {
+        this.setState(prevState => (
+            {
+                showApproachPopup: !prevState.showApproachPopup
+            }
+        ));
+    }
     render = () => {
-        const list = pagelist();
+        const list = pagelist(); //assign pagelist() result to a variable to avoid executing it multiple times 
+
+        //Map the page list to create the slider dots
         const dots = list.map((dot, key) => (
             <NavLink key={key} exact={dot.exact} className="slider-dot" to={dot.path}>{dot.pagename}</NavLink>
         ));
+
+        //Map the page list to create the slider content
         const routes = list.map((route, key) => (
             <Route key={key} path={route.path} render={() => {
-                const component = React.createElement(route.component, { key, setErrorPrompt: this.setErrorPrompt })
+                const component = React.createElement(route.component, {
+                    key,
+                    setErrorPrompt: this.setErrorPrompt,
+                    toggleApproachPopup: this.toggleApproachPopup
+                })
                 return component;
+                //The react must be written without JSX because the Component name is stored in a variable
             }} />
         ));
+        //Back and forward buttons for the sliders
+        //Switch and Route are used because the "to" prop has to change every time the page changes
         const sliderButtonBack = list.map((route, key) => {
             let index = null;
             if (route.id === 0) {
@@ -63,6 +86,9 @@ class Slider extends Component {
             <main>
                 {
                     this.state.errorPrompt === "" ? null : <FormError error={this.state.errorPrompt} />
+                }
+                {
+                    this.state.showApproachPopup ? <ApproachPopup toggleApproachPopup={this.toggleApproachPopup} /> : null
                 }
                 <Switch>
                     {sliderButtonBack}

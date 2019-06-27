@@ -1,6 +1,6 @@
 import React from 'react';
 import '../css/Info.scss';
-const Info = () => {
+const Info = (props) => {
     return (
         <div className="slider-container no-overflow">
             <p>
@@ -12,7 +12,7 @@ const Info = () => {
             <p>
                 Wesele odbędzie się w Dworku Banderoza w Osiecznej.
             </p>
-            <button className="approach">
+            <button onClick={props.toggleApproachPopup} className="approach">
                 Dojazd
             </button>
         </div>
