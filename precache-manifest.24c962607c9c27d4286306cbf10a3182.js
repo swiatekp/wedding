@@ -1,23 +1,31 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "bdf87a47b11b80bf5b1b329d105bd25b",
+    "revision": "1ccac3d61d07e6b6b3d9e3354f30d0ae",
     "url": "/wedding/index.html"
   },
   {
-    "revision": "ebce78363839352aeece",
-    "url": "/wedding/static/css/main.69401db9.chunk.css"
+    "revision": "acc16e993a2d7f1a83db",
+    "url": "/wedding/static/css/main.9a695f22.chunk.css"
   },
   {
-    "revision": "ecfaa8c719b0b3d8fb08",
-    "url": "/wedding/static/js/2.45ffc55f.chunk.js"
+    "revision": "a17433788c30662d4071",
+    "url": "/wedding/static/js/2.123d471d.chunk.js"
   },
   {
-    "revision": "ebce78363839352aeece",
-    "url": "/wedding/static/js/main.9fe97e1b.chunk.js"
+    "revision": "acc16e993a2d7f1a83db",
+    "url": "/wedding/static/js/main.1d3cce1e.chunk.js"
   },
   {
     "revision": "f05cdc32ffbcfb27d2df",
     "url": "/wedding/static/js/runtime~main.8918a5c1.js"
+  },
+  {
+    "revision": "d51976d120ea1a83998c3333e359d2cc",
+    "url": "/wedding/static/media/approach-hover.d51976d1.svg"
+  },
+  {
+    "revision": "9592214a3f68eadefc0d65eeb6ba9255",
+    "url": "/wedding/static/media/approach.9592214a.svg"
   },
   {
     "revision": "abb695bba98b9d1801c8d9489f79b3c5",
@@ -54,5 +62,13 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "5ead419a0852ee8d7537c404f79b9cdf",
     "url": "/wedding/static/media/phone.5ead419a.svg"
+  },
+  {
+    "revision": "e94414156dff8caa6b0932db6eaf4b95",
+    "url": "/wedding/static/media/pin-hover.e9441415.svg"
+  },
+  {
+    "revision": "6be95e8a51a526246a46e5b1b824bd04",
+    "url": "/wedding/static/media/pin.6be95e8a.svg"
   }
 ]);
