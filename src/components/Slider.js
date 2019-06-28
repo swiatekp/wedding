@@ -4,12 +4,10 @@ import SwipeableRoutes from "react-swipeable-routes";
 import '../css/Slider.scss';
 import pagelist from '../pagelist.js';
 import FormError from './FormError.js';
-import ApproachPopup from './ApproachPopup.js';
 
 class Slider extends Component {
     state = {
         errorPrompt: "",
-        showApproachPopup: false,
     }
     //error prompt setter - used by the Confirmation component
     //Had to be moved here because of problems with position:fixed inside SwipeableRoutes
@@ -25,13 +23,6 @@ class Slider extends Component {
     }
     //handles the display of a popup, that shows the locations
     //had to be moved here because of problems with position:fixed inside SwipeableRoutes
-    toggleApproachPopup = () => {
-        this.setState(prevState => (
-            {
-                showApproachPopup: !prevState.showApproachPopup
-            }
-        ));
-    }
     render = () => {
         const list = pagelist(); //assign pagelist() result to a variable to avoid executing it multiple times 
 
@@ -45,8 +36,7 @@ class Slider extends Component {
             <Route key={key} path={route.path} render={() => {
                 const component = React.createElement(route.component, {
                     key,
-                    setErrorPrompt: this.setErrorPrompt,
-                    toggleApproachPopup: this.toggleApproachPopup
+                    setErrorPrompt: this.setErrorPrompt
                 })
                 return component;
                 //The react must be written without JSX because the Component name is stored in a variable
@@ -86,9 +76,6 @@ class Slider extends Component {
             <main>
                 {
                     this.state.errorPrompt === "" ? null : <FormError error={this.state.errorPrompt} />
-                }
-                {
-                    this.state.showApproachPopup ? <ApproachPopup toggleApproachPopup={this.toggleApproachPopup} /> : null
                 }
                 <Switch>
                     {sliderButtonBack}

@@ -1,4 +1,5 @@
 import Info from './components/Info.js';
+import Approach from './components/Approach';
 import Confirmation from './components/Confirmation.js';
 import Contact from './components/Contact.js';
 
@@ -7,7 +8,7 @@ const pagelist = () => {
         [
             {
                 id: 0,
-                name: "Czas i miejsce",
+                name: "Strona główna",
                 path: "/",
                 exact: true,
                 className: "info-icon",
@@ -16,6 +17,15 @@ const pagelist = () => {
             },
             {
                 id: 1,
+                name: "Dojazd",
+                path: "/approach",
+                exact: false,
+                className: "approach-icon",
+                component: Approach,
+                componentName: "Approach"
+            },
+            {
+                id: 2,
                 name: "Potwierdź przybycie",
                 path: "/confirm",
                 exact: false,
@@ -24,7 +34,7 @@ const pagelist = () => {
                 componentName: "Confirmation",
             },
             {
-                id: 2,
+                id: 3,
                 name: "Kontakt",
                 path: "/contact",
                 exact: false,

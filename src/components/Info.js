@@ -1,6 +1,7 @@
 import React from 'react';
 import '../css/Info.scss';
 import ApproachButton from './ApproachButton.js';
+import { NavLink } from 'react-router-dom';
 const Info = (props) => {
     return (
         <div className="slider-container no-overflow">
@@ -13,7 +14,7 @@ const Info = (props) => {
             <p>
                 Wesele odbędzie się w Dworku Banderoza w Osiecznej.
             </p>
-            <ApproachButton toggleApproachPopup={props.toggleApproachPopup} />
+            <NavLink to={'/approach'}><ApproachButton /></NavLink>
         </div>
     );
 }
