@@ -12,7 +12,6 @@ class ApproachMain extends Component {
         else if (icon === "party") {
             this.setState({ partyHover: true })
         }
-        console.log(icon);
     }
     mouseOut = (icon) => {
         if (icon === "church") {
@@ -21,7 +20,6 @@ class ApproachMain extends Component {
         else if (icon === "party") {
             this.setState({ partyHover: false })
         }
-        console.log(icon);
     }
     render() {
         return (
