@@ -6,12 +6,12 @@ import ApproachChurch from './ApproachChurch.js';
 import ApproachParty from './ApproachParty.js';
 import '../css/Approach.scss'; //Contains styles for each Route
 
-const Approach = () => {
+const Approach = (props) => {
     return (
         <Switch>
             <Route exact={true} path="/approach/" component={ApproachMain}></Route>
-            <Route path="/approach/church/" component={ApproachChurch}></Route>
-            <Route path="/approach/party" component={ApproachParty}></Route>
+            <Route path="/approach/church/" render={() => (<ApproachChurch showImage={props.showImage} />)}></Route>
+            <Route path="/approach/party" render={() => (<ApproachParty showImage={props.showImage} />)}></Route>
         </Switch>
     );
 }

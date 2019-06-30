@@ -4,10 +4,12 @@ import SwipeableRoutes from "react-swipeable-routes";
 import '../css/Slider.scss';
 import pagelist from '../pagelist.js';
 import FormError from './FormError.js';
+import ShowImage from './ShowImage.js';
 
 class Slider extends Component {
     state = {
         errorPrompt: "",
+        imagePath: null
     }
     //error prompt setter - used by the Confirmation component
     //Had to be moved here because of problems with position:fixed inside SwipeableRoutes
@@ -21,8 +23,13 @@ class Slider extends Component {
             });
         }, 2500)
     }
-    //handles the display of a popup, that shows the locations
-    //had to be moved here because of problems with position:fixed inside SwipeableRoutes
+    //Shows an image - if state.imagePath is not null, ShowImage component is shown
+    showImage = (imagePath) => {
+        this.setState({ imagePath })
+    }
+    hideImage = () => {
+        this.setState({ imagePath: null })
+    }
     render = () => {
         const list = pagelist(); //assign pagelist() result to a variable to avoid executing it multiple times 
 
@@ -36,7 +43,8 @@ class Slider extends Component {
             <Route key={key} path={route.path} render={() => {
                 const component = React.createElement(route.component, {
                     key,
-                    setErrorPrompt: this.setErrorPrompt
+                    setErrorPrompt: this.setErrorPrompt,
+                    showImage: this.showImage
                 })
                 return component;
                 //The react must be written without JSX because the Component name is stored in a variable
@@ -76,6 +84,9 @@ class Slider extends Component {
             <main>
                 {
                     this.state.errorPrompt === "" ? null : <FormError error={this.state.errorPrompt} />
+                }
+                {
+                    this.state.imagePath ? <ShowImage hideImage={this.hideImage} path={this.state.imagePath} /> : null
                 }
                 <Switch>
                     {sliderButtonBack}
