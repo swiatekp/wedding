@@ -74,11 +74,7 @@ $background:#F7F8FA;
     border: 2px solid white;
     transform:translate(-50%) scalex(1.1);
 }
-.showimage-background>img {
-    // position:fixed;
-    // top:50%;
-    // left:50%;
-    // transform:translate(-50%, -50%);
+.showimage-background>div>img {
     opacity:1;
     border-radius:4px;
     animation:fade-in 0.5s ease-in both;
