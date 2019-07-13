@@ -30,9 +30,11 @@ class ShowImage extends React.Component {
     render = () => {
         return (
             <div onClick={this.clickOutsideTheImgHandler} className="showimage-background">
-                <img className={`image ${this.state.isZoomed ? null : "img-not-zoomed"}`} onClick={this.toggleZoom} src={this.props.path} alt="obrazek" />)
-                <button className="showimage-close-x" onClick={this.props.hideImage}>X</button>
-                <button className="showimage-close-button" onClick={this.props.hideImage}>Zamknij</button>
+                <div>
+                    <img className={`image ${this.state.isZoomed ? null : "img-not-zoomed"}`} onClick={this.toggleZoom} src={this.props.path} alt="obrazek" />)
+                    <button className="showimage-close-x" onClick={this.props.hideImage}>X</button>
+                    <button className="showimage-close-button" onClick={this.props.hideImage}>Zamknij</button>
+                </div>
             </div>
         );
     }
