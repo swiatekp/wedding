@@ -15,7 +15,6 @@ class ShowImage extends React.Component {
         this.setState(prevState => ({
             isZoomed: !prevState.isZoomed
         }));
-        console.log(this.state.isZoomed);
     }
     escHandler = e => {
         if (e.key === "Escape") {
