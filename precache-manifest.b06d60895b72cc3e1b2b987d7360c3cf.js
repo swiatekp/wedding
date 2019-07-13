@@ -1,19 +1,19 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "d4757a1f6389a5b6135b8c5dfad04267",
+    "revision": "d46a08bd54f4de3e607bb8fbccaeb279",
     "url": "/wedding/index.html"
   },
   {
-    "revision": "5dd64a075c2c12490d6c",
-    "url": "/wedding/static/css/main.542b2f1b.chunk.css"
+    "revision": "f0f9429c5a2f00a90715",
+    "url": "/wedding/static/css/main.c5ed999f.chunk.css"
   },
   {
-    "revision": "26c5a0ae6009f9bff5fc",
-    "url": "/wedding/static/js/2.605e3336.chunk.js"
+    "revision": "3353ae30135f873d0050",
+    "url": "/wedding/static/js/2.d548d447.chunk.js"
   },
   {
-    "revision": "5dd64a075c2c12490d6c",
-    "url": "/wedding/static/js/main.d74742cf.chunk.js"
+    "revision": "f0f9429c5a2f00a90715",
+    "url": "/wedding/static/js/main.61489264.chunk.js"
   },
   {
     "revision": "f05cdc32ffbcfb27d2df",
@@ -46,14 +46,6 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "bf3d4826f1914a639b6f2a81ce5868c2",
     "url": "/wedding/static/media/church4.bf3d4826.png"
-  },
-  {
-    "revision": "71251cd5d811fc82c596323052582007",
-    "url": "/wedding/static/media/close-hover.71251cd5.svg"
-  },
-  {
-    "revision": "38ae16c1229ef228debccc8df8ae0ce5",
-    "url": "/wedding/static/media/close.38ae16c1.svg"
   },
   {
     "revision": "56bdf230b293d82836db447393075734",
