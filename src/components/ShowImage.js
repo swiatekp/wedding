@@ -4,15 +4,33 @@ class ShowImage extends React.Component {
     state = {
         isZoomed: false
     }
-    toggleZoom = () => {
+    componentDidMount() {
+        document.addEventListener('keydown', this.escHandler);
+    }
+    componentWillUnmount() {
+        document.removeEventListener('keydown', this.escHandler);
+    }
+    toggleZoom = (e) => {
+        e.stopPropagation();
         this.setState(prevState => ({
             isZoomed: !prevState.isZoomed
         }));
     }
+    escHandler = e => {
+        if (e.key === "Escape") {
+            this.props.hideImage();
+        }
+    }
+    clickOutsideTheImgHandler = e => {
+        if (!e.target.classList.contains("image")) {
+            this.props.hideImage();
+        }
+    }
     render = () => {
         return (
-            <div className="showimage-background">
-                <img className={this.state.isZoomed ? null : "img-not-zoomed"} onClick={this.toggleZoom} src={this.props.path} alt="obrazek" />)
+            <div onClick={this.clickOutsideTheImgHandler} className="showimage-background"
+                tabIndex="1">
+                <img className={`image this.state.isZoomed ? null : "img-not-zoomed"`} onClick={this.toggleZoom} src={this.props.path} alt="obrazek" />)
                 <button className="showimage-close-x" onClick={this.props.hideImage}>X</button>
                 <button className="showimage-close-button" onClick={this.props.hideImage}>Zamknij</button>
             </div>
