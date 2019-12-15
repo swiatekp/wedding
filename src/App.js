@@ -41,7 +41,7 @@ class App extends Component {
               weddingDate: new Date(pageInfo.weddingDate)
             }
           }));
-          document.title = `${this.state.pageInfo.pageTitle} - ${this.convertDate(this.state.pageInfo.date)}`;
+          document.title = `${this.state.pageInfo.pageTitle} - ${this.convertDate(new Date(pageInfo.weddingDate))}`;
         }
       })
       .catch(err => {
