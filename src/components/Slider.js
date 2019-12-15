@@ -44,7 +44,8 @@ class Slider extends Component {
                 const component = React.createElement(route.component, {
                     key,
                     setErrorPrompt: this.setErrorPrompt,
-                    showImage: this.showImage
+                    showImage: this.showImage,
+                    pageInfo: this.props.pageInfo
                 })
                 return component;
                 //The react must be written without JSX because the Component name is stored in a variable

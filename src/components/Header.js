@@ -1,11 +1,11 @@
 import React from 'react';
 import '../css/Header.scss';
-import siteData from "../siteData.json";
-const Header = () => {
+
+const Header = (props) => {
     return (
         <header>
-            <h1>{`${siteData.bride.firstName} i ${siteData.groom.firstName}`}</h1>
-            <h2>{siteData.weddingDate}</h2>
+            <h1>{`${props.pageInfo.pageTitle}`}</h1>
+            <h2>{`${props.pageInfo.weddingDate}`}</h2>
         </header>
     );
 }

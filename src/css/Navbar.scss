@@ -32,7 +32,7 @@ nav {
         transition: 0.3s;
     }
     .nav-link:hover {
-        transform:rotate(-5deg);
+        transform:rotate(-1deg);
     }
     .info-icon {
         background-image:url('../img/mobile/info.svg');
@@ -70,7 +70,6 @@ nav {
         .nav-link:hover {
             background-image:none;
             color:$rose;
-            transform:none;
         }
     }
 }
