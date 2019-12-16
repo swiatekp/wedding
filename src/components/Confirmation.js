@@ -1,19 +1,29 @@
 import React, { Component } from 'react';
 import '../css/Confirmation.scss';
+import config from '../config.json'
 class Confirmation extends Component {
     state = {
-        name: '',
+        firstName: '',
         surname: '',
         confirmed: false,
-        companion: '',
+        _id: '',
+
+        companionId: '',
+        companionFirstName: '',
+        companionSurname: '',
         companionConfirmed: false,
-        message: '',
+
+        companionFirstNameInBase: '', //these fields will be used to check, if companions' name was changed by user and possibly execute a certain API query
+        companionSurnameInBase: '',
+
         token: '',
+
         nameError: false,
         surnameError: false,
         companionError: false,
-        messageError: false,
         tokenError: false,
+
+        noCompanion: true //disables the fields of the form, that accord to the companion
     }
     isValid = target => {
         if (target.type === "text" || target.tagName === "TEXTAREA") {
@@ -42,22 +52,6 @@ class Confirmation extends Component {
                     this.props.setErrorPrompt('Token składa się wyłącznie z cyfr i liter (6 znaków)');
                 }
                 return false;
-            }
-            else if (target.id === "message") {
-                if (target.value.length <= 500) {
-                    const regEx = /^[a-zęóąśłżźćń0-9!#&*()-_=+;:]*$/;
-                    if (regEx.test(target.value)) {
-                        return true;
-                    }
-                    else {
-                        this.props.setErrorPrompt('Użyto niedozwolonego znaku');
-                    }
-                    return false;
-                }
-                else {
-                    this.props.setErrorPrompt('Długość wiadomości nie może przekroczyć 500 znaków.')
-                    return false;
-                }
             }
         }
         else if (target.type === "radio") {
@@ -90,6 +84,65 @@ class Confirmation extends Component {
             }
         }
     }
+    fetchCompanionData = () => {
+        const { firstName, surname, token, nameError, surnameError, tokenError } = this.state;
+        if (firstName !== '' && surname !== '' && token !== '' && !nameError && !surnameError && !tokenError) {
+            fetch(`${config.apiUrl}/api/guests/by-name`,
+                {
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ firstName, surname, token }),
+                    method: 'POST'
+                }
+            ).then(resp => resp.json())
+                .then(guest => {
+                    if (guest.error) {
+                        throw new Error(guest.error);
+                    }
+                    else {
+                        this.setState({ confirmed: guest.confirmed, _id: guest._id, companionId: guest.companionId });
+                        if (guest.companionId !== "" && guest.companionId !== undefined && guest.companionId !== null) {
+                            fetch(`${config.apiUrl}/api/guests/${guest.companionId}`, {
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                body: JSON.stringify({ token }),
+                                method: 'POST'
+                            })
+                                .then(resp => resp.json())
+                                .then(companion => {
+                                    if (companion.error) {
+                                        throw new Error(companion.error);
+                                    }
+                                    else {
+                                        this.setState({
+                                            companionFirstName: companion.firstName,
+                                            companionSurname: companion.surname,
+                                            companionConfirmed: companion.confirmed,
+
+                                            companionFirstNameInBase: companion.firstName,
+                                            companionSurnameInBase: companion.surname,
+
+                                            noCompanion: false
+                                        })
+                                    }
+                                })
+                                .catch(err => {
+                                    this.props.setErrorPrompt(err.message);
+                                })
+                        }
+                        else {
+                            this.setState({ companionFirstName: '', companionSurname: '', companionConfirmed: false, noCompanion: true });
+                        }
+                    }
+                })
+                .catch(err => {
+                    console.log(err);
+                    this.props.setErrorPrompt(err.message);
+                });
+        }
+    }
     formSubmit = e => {
         e.preventDefault();
 
@@ -105,10 +158,6 @@ class Confirmation extends Component {
         }
         if (!/^[a-zęóąśłżźćń ]{2,}$/i.test(this.state.companion)) {
             this.setState({ companionError: true });
-            isThereAnError = true;
-        }
-        if (!/^[a-zęóąśłżźćń0-9!#&*()-_=+;:]*$/i.test(this.state.message)) {
-            this.setState({ messageError: true });
             isThereAnError = true;
         }
         if (!/^[a-z0-9]{6}$/i.test(this.state.token)) {
@@ -130,36 +179,149 @@ class Confirmation extends Component {
         }
     }
     formReset = e => {
-        e.preventDefault();
+        if (e) {
+            e.preventDefault();
+        }
         this.setState({
-            name: '',
+            firstName: '',
             surname: '',
             confirmed: false,
-            companion: '',
+            _id: '',
+
+            companionId: '',
+            companionFirstName: '',
+            companionSurname: '',
             companionConfirmed: false,
-            message: '',
+
+            companionFirstNameInBase: '',
+            companionSurnameInBase: '',
+
             token: '',
+
             nameError: false,
             surnameError: false,
             companionError: false,
-            messageError: false,
+            tokenError: false,
+
+            noCompanion: true
         });
     }
     sendToAPI = () => {
-        console.log("Udaję że wysyłam");
+        const { companionFirstName, companionSurname, companionFirstNameInBase, companionSurnameInBase } = this.state;
+
+        if (companionFirstName !== companionFirstNameInBase || companionSurname !== companionSurnameInBase) {
+            //if companion's first or surname changed - execute the certain API Query
+            this.changeCompanionName();
+        }
+        else {
+            //this.confirm() will be executed by this.changeCompanionName in case of companion's name change
+            this.confirm();
+        }
     }
+    changeCompanionName = () => {
+        const { _id, companionFirstName, companionSurname, token } = this.state;
+
+        fetch(`${config.apiUrl}/api/guests/${_id}/change-companion-name`,
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    firstName: companionFirstName,
+                    surname: companionSurname,
+                    token
+                }),
+                method: 'PUT'
+            })
+            .then(resp => resp.json())
+            .then(resp => {
+                if (resp.error) {
+                    throw new Error(resp.error);
+                }
+                else {
+                    this.confirm()
+                }
+            })
+            .catch(err => {
+                this.props.setErrorPrompt(err.message);
+            })
+    }
+
+    confirm = () => {
+        const {
+            _id,
+            companionId,
+            confirmed,
+            companionConfirmed,
+            token
+        } = this.state;
+
+        //First - confirm the main guest
+        fetch(`${config.apiUrl}/api/guests/${_id}/confirm`,
+            {
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({
+                    token, confirmed
+                }),
+                method: 'PUT'
+            })
+            .then(resp => resp.json())
+            .then(resp => {
+                if (resp.error) {
+                    throw new Error(resp.error);
+                }
+                else {
+                    fetch(`${config.apiUrl}/api/guests/${companionId}/confirm`,
+                        {
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({
+                                token, confirmed: companionConfirmed
+                            }),
+                            method: 'PUT'
+                        })
+                        .then(resp => resp.json())
+                        .then(resp => {
+                            if (resp.error) {
+                                throw new Error(resp.error);
+                            }
+                            else {
+                                this.props.setErrorPrompt('Udało się!')
+                                this.formReset();
+                            }
+                        })
+                        .catch(err => {
+                            this.props.setErrorPrompt(err.message);
+                        })
+                }
+            })
+            .catch(err => {
+                this.props.setErrorPrompt(err.message);
+            })
+
+    }
+
     render() {
-        const { name, surname, companion, companionConfirmed, message, token } = this.state;
+        const { firstName, surname, companionFirstName, companionSurname, companionConfirmed, message, token, noCompanion } = this.state;
         return (
             <div className="slider-container">
                 <h3 className="confirmation-h3">Potwierdź przybycie</h3>
+                <p>
+                    Aby zweryfikować tożsamość, w polu <i>token</i>, należy wprowadzić kod dołączony do zaproszenia.
+                </p>
                 <form onSubmit={e => e.preventDefault()} className="confirmation-form" autoComplete="off">
 
-                    <label htmlFor="name">Imię</label>
-                    <input onChange={this.changeHandler} type="text" id="name" className={`name ${this.state.nameError === true ? "input-error" : null}`} value={name} />
+                    <label htmlFor="firstName">Imię</label>
+                    <input onBlur={this.fetchCompanionData} onChange={this.changeHandler} type="text" id="firstName" className={`name ${this.state.nameError === true ? "input-error" : null}`} value={firstName} />
 
                     <label htmlFor="surname">Nazwisko</label>
-                    <input onChange={this.changeHandler} type="text" id="surname" className={`name ${this.state.surnameError ? "input-error" : null}`} value={surname} />
+                    <input onBlur={this.fetchCompanionData} onChange={this.changeHandler} type="text" id="surname" className={`name ${this.state.surnameError ? "input-error" : null}`} value={surname} />
+
+                    <label htmlFor="token">Token</label>
+                    <input onBlur={this.fetchCompanionData} className={this.state.tokenError ? "input-error" : null} onChange={this.changeHandler} type="text" id="token" value={token} />
 
                     <p>Czy przybędziesz na wesele?</p>
                     <div>
@@ -173,25 +335,23 @@ class Confirmation extends Component {
                         </label>
                     </div>
 
-                    <label htmlFor="companion">Osoba towarzysząca</label>
-                    <input onChange={this.changeHandler} type="text" id="companion" className={`name ${this.state.companionError ? "input-error" : null}`} value={companion} />
+                    <label htmlFor="companionFirstName">Imię os. towarzyszącej</label>
+                    <input disabled={noCompanion} onChange={this.changeHandler} type="text" id="companionFirstName" className={`name ${this.state.companionFirstNameError ? "input-error" : null}`} value={companionFirstName} />
+
+                    <label htmlFor="companionSurname">Nazwisko os. towarzyszącej</label>
+                    <input disabled={noCompanion} onChange={this.changeHandler} type="text" id="companionSurname" className={`name ${this.state.companionFirstNameError ? "input-error" : null}`} value={companionSurname} />
 
                     <p>Czy osoba towarzysząca przybędzie na wesele?</p>
                     <div>
                         <label className="radio-label">
-                            <input onChange={this.changeHandler} type="radio" name="companionConfirmed" value={true} checked={companionConfirmed} />
+                            <input disabled={noCompanion} onChange={this.changeHandler} type="radio" name="companionConfirmed" value={true} checked={companionConfirmed} />
                             Tak
                         </label>
                         <label>
-                            <input onChange={this.changeHandler} type="radio" name="companionConfirmed" value={false} checked={!companionConfirmed} />
+                            <input disabled={noCompanion} onChange={this.changeHandler} type="radio" name="companionConfirmed" value={false} checked={!companionConfirmed} />
                             Nie
                         </label>
                     </div>
-                    <label htmlFor="message">Twoja wiadomość</label>
-                    <textarea className={this.state.messageError ? "input-error" : null} onChange={this.changeHandler} id="message" placeholder="Twoja wiadomość" value={message}></textarea>
-
-                    <label htmlFor="token">Token</label>
-                    <input className={this.state.tokenError ? "input-error" : null} onChange={this.changeHandler} type="text" id="token" value={token} />
 
                     <button onClick={this.formSubmit}>Wyślij</button>
                     <button onClick={this.formReset}>Reset</button>

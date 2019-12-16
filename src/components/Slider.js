@@ -9,19 +9,24 @@ import ShowImage from './ShowImage.js';
 class Slider extends Component {
     state = {
         errorPrompt: "",
+        errorPromptLocked: false, //prevent the prompt from being set multiple times
         imagePath: null
     }
     //error prompt setter - used by the Confirmation component
     //Had to be moved here because of problems with position:fixed inside SwipeableRoutes
     setErrorPrompt = (errorPrompt) => {
-        this.setState({
-            errorPrompt
-        })
-        setTimeout(() => {
+        if (!this.state.errorPromptLocked) {
             this.setState({
-                errorPrompt: ""
-            });
-        }, 2500)
+                errorPrompt,
+                errorPromptLocked: true
+            })
+            setTimeout(() => {
+                this.setState({
+                    errorPrompt: "",
+                    errorPromptLocked: false
+                });
+            }, 2500)
+        }
     }
     //Shows an image - if state.imagePath is not null, ShowImage component is shown
     showImage = (imagePath) => {

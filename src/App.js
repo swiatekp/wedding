@@ -9,7 +9,7 @@ import config from './config.json';
 class App extends Component {
   state = {
     pageInfo: {
-      pageTitle: 'Strona ślubna',
+      pageTitle: '',
       weddingDate: null,
 
       brideName: '',

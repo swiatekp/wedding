@@ -3,7 +3,6 @@ import '../css/Info.scss';
 import ApproachButton from './ApproachButton.js';
 import { NavLink } from 'react-router-dom';
 const Info = (props) => {
-    console.log(props);
     return (
         <div className="slider-container no-overflow">
             <div dangerouslySetInnerHTML={{ __html: props.pageInfo.landingpageText }}></div>
